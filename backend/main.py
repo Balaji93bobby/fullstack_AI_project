@@ -1,6 +1,30 @@
-def main():
-    print("Hello from backend!")
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+# from websockets import Origin
 
+app = FastAPI(
+    title='Choose Your Own Adventure Game API',
+    description='API to generate cool stories using AI',
+    version='0.1.0',
+    docs_url='/docs',
+    redoc_url='/redocs'
+)
 
-if __name__ == "__main__":
-    main()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
+
+# if __name__ == '__main__':
+#     import uvicorn
+#     uvicorn.run(app, 
+#                 host='0.0.0.0', 
+#                 port=8000, 
+#                 reload=True
+#     )
+@app.get('/')
+def hello():
+    return('hello world')
